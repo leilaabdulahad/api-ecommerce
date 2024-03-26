@@ -1,23 +1,15 @@
-const express = require('express')
-const products = require('../controllers/productsController')
-const router = express.Router()
-const messageController = require('../controllers/messageController')
+const express = require('express');
+const router = express.Router();
+const productsRoutes = require('../routes/productRoutes');
+const registerRouter = require('../controllers/register');
+const authRouter = require('../controllers/authController');
 
-// POST route for creating a new product
-router.post('/', products.createProduct)
+// Import the message controller directly
+const messageController = require('../controllers/messageController');
 
-// GET route fetching all products
-router.get('/', products.getProducts)
+router.use('/products', productsRoutes);
+router.post('/messages', messageController.postMessage); // Route for handling messages
+router.use('/register', registerRouter);
+router.use('/auth', authRouter);
 
-// GET one product
-router.get('/:id', products.getProductById)
-
-// DELETE route for deleting a product by id
-router.delete('/:id', products.deleteProduct)
-
-// PUT route for updating a product by id
-router.put('/:id', products.updateProduct)
-
-router.post('/messages', messageController.postMessage);
-
-module.exports = router
+module.exports = router;
