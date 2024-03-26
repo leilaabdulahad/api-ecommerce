@@ -1,9 +1,7 @@
 const express = require('express')
 const products = require('../controllers/productsController')
 const router = express.Router()
-const register = require('../controllers/register')
-
-router.post('/register', register)
+const messageController = require('../controllers/messageController')
 
 // POST route for creating a new product
 router.post('/', products.createProduct)
@@ -19,5 +17,7 @@ router.delete('/:id', products.deleteProduct)
 
 // PUT route for updating a product by id
 router.put('/:id', products.updateProduct)
+
+router.post('/messages', messageController.postMessage);
 
 module.exports = router
