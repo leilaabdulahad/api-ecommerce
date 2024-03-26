@@ -4,6 +4,7 @@ exports.postMessage = (req, res) => {
 
     if(!name || !email || !message) {
         return res.status(400).send({ message: "All fields are required"})
+    } else {
+        res.status(200).send({message: "Message receieved successfully"})
     }
-    res.status(200).send({message: "Message receieved successfully"})
 }
