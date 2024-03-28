@@ -32,10 +32,4 @@ UserSchema.methods.isValidPassword = async function (password) {
 
 const User = mongoose.model('User', UserSchema)
 
-User.collection.dropIndex('username_1', (err) => {
-    if(err) {
-        console.log('Error in dropping index', err)
-    }
-})
-
 module.exports = User

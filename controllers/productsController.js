@@ -41,7 +41,7 @@ exports.getProductById = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
     try{
         await Product.findByIdAndDelete(req.params.id)
-        res.status(204).send()
+        res.status(200).send({message: `Product ${req.params.id} deleted`})
     } catch(error){
         res.status(500).send({ message: "Something went wrong when trying to delete a product"})
     }
