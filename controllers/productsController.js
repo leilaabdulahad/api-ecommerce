@@ -2,15 +2,24 @@ const Product = require('../models/Product')
 
 // POST
 exports.createProduct = async (req, res) => {
-    const product = new Product(req.body)
-    await product.save()
-    res.status(201).send(product)
+    try{
+        const product = new Product(req.body)
+        await product.save()
+        res.status(201).send(product)
+
+    } catch(error){
+        res.status(500).send({ message: 'Error creating product', error: error.toString()})
+    }
 }
 
 // GET
 exports.getProducts = async (req, res) => {
-    const products = await Product.find()
-    res.send(products)
+    try{
+        const products = await Product.find()
+        res.send(products)
+    } catch(error){
+        res.status(500).send({ message: 'An error occured while fetching the products', error: error.message })
+    }
 }
 
 // GET Single Product
@@ -28,15 +37,22 @@ exports.getProductById = async (req, res) => {
     }
 }
 
-
 // DELETE
 exports.deleteProduct = async (req, res) => {
-    await Product.findByIdAndDelete(req.params.id)
-    res.status(204).send()
+    try{
+        await Product.findByIdAndDelete(req.params.id)
+        res.status(204).send()
+    } catch(error){
+        res.status(500).send({ message: "Something went wrong when trying to delete a product"})
+    }
 }
 
 // UPDATE
 exports.updateProduct = async (req, res) => {
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    res.send(product)
+    try{
+        const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        res.send(product)
+    } catch(error){
+        res.status(500).send({ message: "Something went wrong when trying to update the product infomation"})
+    }
 }
