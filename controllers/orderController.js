@@ -25,7 +25,7 @@ exports.createOrder = async (req, res) => {
 
 exports.getUserOrders = async (req, res) => {
     try{
-        const orders = await Order.find({ userId: req.user._id })
+        const orders = await Order.find({ userId: req.user._id }).populate({ path: 'products.productId', model: 'Product' }).exec()
 
         res.status(200).json({
             success: true,

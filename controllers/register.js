@@ -8,8 +8,11 @@ router.post('/', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10)
         const user = new User({ firstName, lastName, email, password: hashedPassword })
+
         await user.save()
+        
         res.status(201).json({ message: 'User registered successfully' })
+    
     } catch (err) {
         console.error('Error:', err)
         res.status(500).json({ error: 'Server error' })
